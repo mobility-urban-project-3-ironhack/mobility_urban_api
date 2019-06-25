@@ -10,6 +10,7 @@ require('./configs/passport.config')
 const session = require('./configs/session.config')
 
 const authRouter = require('./routes/auth.routes');
+const journeyRouter = require('./routes/journey.routes')
 
 
 const app = express();
@@ -24,7 +25,10 @@ app.use(session)
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/', authRouter);
+app.use('/', authRouter)
+app.use('/journeys', journeyRouter)
+// /journeys para trayexto
+// /user para crud de usuario
 
 // Error 404
 app.use((req, res, next)=>{

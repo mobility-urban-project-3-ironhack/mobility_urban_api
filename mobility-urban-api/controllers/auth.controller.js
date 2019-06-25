@@ -2,7 +2,6 @@ const User = require('../models/user.model')
 const createError = require('http-errors')
 const passport = require('passport')
 
-
 module.exports.register = (req,res,next) => {
   const { username,email } = req.body
 
