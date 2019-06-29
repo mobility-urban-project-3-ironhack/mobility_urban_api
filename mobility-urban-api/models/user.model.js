@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema({
   }, {
     timestamps: true,
     toJSON: {
+      virtuals : true,
       transform: (doc,ret) => {
         ret.id = doc._id
         delete ret._id
@@ -40,6 +41,13 @@ const userSchema = new mongoose.Schema({
     }
   }
 )
+
+userSchema.virtual('journeys', {
+  ref: 'Journeys',
+  localField:'_id',
+  foreignField:'userID'
+})
+
 
 userSchema.pre('save', function(next) {
   const user = this

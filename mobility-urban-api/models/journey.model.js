@@ -24,13 +24,24 @@ const journeySchema = new mongoose.Schema({
   },
   price: Number,
   duration: Number,
-}, { timestamps: true })
+}, { 
+  timestamps: true,
+  toJSON: {
+    transform: (doc,ret) => {
+      ret.id = doc._id
+      delete ret._id
+      delete ret.password
+      delete ret.__v
+      return ret
+    }
+  }
+ })
 
 // verificar como devuelven las apis el precio, 
 // lo ideal es guardarlo en number
 
 journeySchema.index({ location: '2dsphere' });
 
-const Journey = mongoose.model('Journey', journeySchema)
+const Journeys = mongoose.model('Journeys', journeySchema)
 
-module.exports = Journey;
+module.exports = Journeys;

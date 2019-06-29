@@ -1,6 +1,7 @@
 const User = require('../models/user.model')
 const createError = require('http-errors')
 const passport = require('passport')
+const Journeys = require('../models/journey.model')
 
 module.exports.register = (req,res,next) => {
   const { username,email } = req.body
@@ -44,6 +45,7 @@ module.exports.logout = (req,res,next) => {
 module.exports.getUsers = (req,res,next) => {
 
   User.find()
+    .populate('journeys')
     .then(users => res.json(users))
     .catch(next)
 }
