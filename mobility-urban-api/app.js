@@ -7,10 +7,13 @@ const passport = require('passport')
 
 require('./configs/db.config')
 require('./configs/passport.config')
+require('dotenv').config()
+
 const session = require('./configs/session.config')
 
 const authRouter = require('./routes/auth.routes');
 const journeyRouter = require('./routes/journey.routes')
+const searchRouter = require('./routes/search.routes')
 
 
 const app = express();
@@ -27,6 +30,7 @@ app.use(passport.session())
 
 app.use('/', authRouter)
 app.use('/journeys', journeyRouter)
+app.use('/search',searchRouter)
 // /journeys para trayexto
 // /user para crud de usuario
 
