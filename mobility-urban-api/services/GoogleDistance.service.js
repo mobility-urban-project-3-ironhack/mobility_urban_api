@@ -1,23 +1,33 @@
+require('dotenv').config()
 const axios = require('axios')
 
 
 
 const bikeCaloriesConsupmtionsPerSecond = 0.1
 const walkingCaloriesConsupmtionsPerSecond = 0.05
+// que las const que salgan del .env solo puede salir string para transformarlo a un array necesitamos number
 
 
 const http = axios.create({
   baseURL: 'https://maps.googleapis.com/maps/api/directions/'
 })
 
-const request = (origin, destination,transitMode) => http.get('/json',{
+const request = (origin, destination,transitMode,publicTransit) => http.get('/json',{
   params: {
     origin: `${origin.lat},${origin.lng}`,
     destination: `${destination.lat},${destination.lng}`,
     mode: transitMode,
-    key: process.env.GOOGLE_DIRECTIONS_API_KEY
+    key: process.env.GOOGLE_DIRECTIONS_API_KEY,
+    transit_mode: `${publicTransit ? publicTransit : ''}`
   }
 }).then(res => res.data.routes[0].legs)
+// }).then(res => res.data)
+
+// esta petición auna todas la peticiones para formar el camino de las bicis
+
+const bikeRequest = (origin,originBikeDeck,destBikeDeck,destination) => {
+
+}
 
 const getDirections = (origin,destination) => Promise.all([
   request(origin,destination,'driving'),
@@ -54,4 +64,4 @@ const getDirections = (origin,destination) => Promise.all([
 // en calories er si hay algo andando y cuanto supone eso en tiempo y distancia en el transporte publico.
 
 
-module.exports = {getDirections}
+module.exports = {getDirections,request}

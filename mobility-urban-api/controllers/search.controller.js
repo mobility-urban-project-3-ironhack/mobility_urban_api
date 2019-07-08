@@ -1,5 +1,5 @@
 const User = require('../models/user.model')
-const googleService = require('../services/Google.service')
+const googleDistanceService = require('../services/GoogleDistance.service')
 // lo importo porque me gustaria traerme del modelo los consumos de los coches del usuario
 
 const origin = {
@@ -14,9 +14,11 @@ const destination = {
 
 module.exports.list = (req,res,next) => {
   const {origin,destination} = req.body
-  console.log(origin)
-  googleService.getDirections(origin,destination)
+
+  
+  googleDistanceService.getDirections(origin,destination)
     .then(data => res.status(200).json(data))
     .catch(next)
+
 }
 
