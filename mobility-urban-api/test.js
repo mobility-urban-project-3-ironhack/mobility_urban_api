@@ -1,4 +1,5 @@
-const googleService = require('./services/GoogleDistance.service')
+const googleService = require('./services/googleDistance.service')
+const biciMadService = require('./services/biciMad.service')
 
 const origin = {
   "lat":40.382444,
@@ -10,6 +11,14 @@ const destination = {
   "lng":-3.701186
 }
 
-googleService.request(origin,destination,'transit','bus')
-  .then(res => console.log(res[0].steps))
+
+biciMadService.getOriginDestDecks(origin,destination)
+  .then(decks => googleService.bikeRequest(origin,destination,decks))
+  .then(res => console.log(JSON.stringify(res)))
   .catch(error => console.error(error))
+
+
+// .then(res => console.log(JSON.stringify(res)))
+// googleService.bikeRequest(origin,destination,originBikeDeck,destinationBikeDeck)
+//   .then(res => console.log(res))
+//   .catch(error => console.error(error))
