@@ -59,6 +59,13 @@ const waitingTime = {
   taxi: Number(process.env.TAXI_WAIT_TIME),
 }
 
+const randomRadius = Number(process.env.RANDOM_RADIUS)
+
+const movoMotoRate = {
+  fix: Number(process.env.MOVO_MOTO_FIX_RATE),
+  var: Number(process.env.MOVO_MOTO_VAR_RATE)
+}
+
 module.exports = {
   caloriesSecond,
   co2Consumption,
@@ -70,7 +77,9 @@ module.exports = {
   biciMadRate,
   busRate,
   subwayRate,
-  waitingTime
+  waitingTime,
+  randomRadius,
+  movoMotoRate
 }
 
 
