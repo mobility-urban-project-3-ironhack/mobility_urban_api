@@ -33,17 +33,31 @@ const taxiRate = {
 
 const uberRate = {
   fix: Number(process.env.UBER_FIX_RATE),
-  varibleMax : Number(process.env.UBER_KM_RATE_MAX),
-  varibleMin : Number(process.env.UBER_KM_RATE_MIN),
+  variableMax : Number(process.env.UBER_KM_RATE_MAX),
+  variableMin : Number(process.env.UBER_KM_RATE_MIN),
 }
 
 const cabifyRate = {
   fix: Number(process.env.UBER_FIX_RATE),
-  varibleMax: Number(process.env.CABIFY_KM_RATE_MAX),
-  varibleMin: Number(process.env.CABIFY_KM_RATE_MIN),
+  variableMax: Number(process.env.CABIFY_KM_RATE_MAX),
+  variableMin: Number(process.env.CABIFY_KM_RATE_MIN),
 }
 
 const biciMadRate = Number(process.env.BICIMAD_HOUR_RATE)
+
+const busRate = Number(process.env.BUS_FIX_RATE)
+
+const subwayRate = {
+  fix: Number(process.env.METRO_FIX_RATE),
+  variable:Number(process.env.METRO_STA_RATE),
+  max: Number(process.env.METRO_MAX_RATE)
+}
+
+const waitingTime = {
+  cabify: Number(process.env.CABIFY_WAIT_TIME),
+  uber: Number(process.env.UBER_WAIT_TIME),
+  taxi: Number(process.env.TAXI_WAIT_TIME),
+}
 
 module.exports = {
   caloriesSecond,
@@ -53,7 +67,10 @@ module.exports = {
   taxiRate,
   uberRate,
   cabifyRate,
-  biciMadRate
+  biciMadRate,
+  busRate,
+  subwayRate,
+  waitingTime
 }
 
 

@@ -12,13 +12,17 @@ const destination = {
 }
 
 
-biciMadService.getOriginDestDecks(origin,destination)
-  .then(decks => googleService.bikeRequest(origin,destination,decks))
-  .then(res => console.log(JSON.stringify(res)))
-  .catch(error => console.error(error))
+// biciMadService.getOriginDestDecks(origin,destination)
+//   .then(decks => googleService.bikeRequest(origin,destination,decks))
+//   .then(res => console.log(JSON.stringify(res)))
+//   .catch(error => console.error(error))
 
 
 // .then(res => console.log(JSON.stringify(res)))
 // googleService.bikeRequest(origin,destination,originBikeDeck,destinationBikeDeck)
 //   .then(res => console.log(res))
 //   .catch(error => console.error(error))
+
+googleService.request(origin,destination,'transit','bus')
+  .then(res => console.log(JSON.stringify(res)))
+  .catch(error => console.error(error))

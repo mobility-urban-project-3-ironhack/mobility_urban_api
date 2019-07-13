@@ -15,6 +15,7 @@ const request = (origin, destination,transitMode,publicTransit) => http.get('/js
     transit_mode: `${publicTransit ? publicTransit : ''}`
   }
 }).then(res => res.data.routes[0].legs[0])
+
 // }).then(res => res.data)
 
 // esta petición auna todas la peticiones para formar el camino de las bicis
@@ -90,6 +91,8 @@ const getDirections = (origin,destination,decks) => Promise.all([
         totalDistance: walkingJourney.distance.value,
         totalTime: walkingJourney.duration.value,
         totalCalories: walkingJourney.duration.value*constants.caloriesSecond.walking,
+        co2: 0,
+        cost: 0,
       },  
       bus: {
         wayPoints: transitJourneyBus.steps.map(step => {
@@ -111,8 +114,10 @@ const getDirections = (origin,destination,decks) => Promise.all([
         totalDistance: transitJourneyBus.distance.value,
         totalTime: transitJourneyBus.duration.value,
         totalCalories: 0,
+        co2:0,
+        cost: constants.busRate
       },
-      subaway: {
+      subway: {
         wayPoints: transitJourneySubway.steps.map(step => {
           return {
               transitMode: step.travel_mode,
@@ -132,13 +137,43 @@ const getDirections = (origin,destination,decks) => Promise.all([
         totalDistance: transitJourneySubway.distance.value,
         totalTime: transitJourneySubway.duration.value,
         totalCalories: 0,
+        co2: 0,
+        cost: constants.subwayRate.fix
       },
+      vtc:[
+        {
+          cabify: {
+            wayPoints:[],
+            totalDistance: drivingJourney.distance.value,
+            totalTime: drivingJourney.duration.value + constants.waitingTime.cabify,
+            totalCalories: 0,
+            co2: (drivingJourney.distance.value/1000)*constants.co2Consumption.cabify,
+            cost: constants.cabifyRate.fix + (drivingJourney.distance.value/1000)*(Math.floor(Math.random() * (constants.cabifyRate.variableMax - constants.cabifyRate.variableMin + 1)) + constants.cabifyRate.variableMin),
+          }
+        }, 
+        {
+        uber: {
+          wayPoints:[],
+          totalDistance: drivingJourney.distance.value,
+          totalTime: drivingJourney.duration.value + constants.waitingTime.uber,
+          totalCalories: 0,
+          co2: (drivingJourney.distance.value/1000)*constants.co2Consumption.uber,
+          cost: constants.uberRate.fix + (drivingJourney.distance.value/1000)*(Math.floor(Math.random() * (constants.uberRate.variableMax - constants.uberRate.variableMin + 1)) + constants.uberRate.variableMin),
+        }
+      }
+      ],
+      taxi: {
+        wayPoints:[],
+        totalDistance: drivingJourney.distance.value,
+        totalTime: drivingJourney.duration.value + constants.waitingTime.taxi,
+        totalCalories: 0,
+        co2: (drivingJourney.distance.value/1000)*constants.co2Consumption.taxi,
+        cost: constants.taxiRate.fix + (drivingJourney.distance.value/1000)*constants.taxiRate.variable
+      } 
     }
   })
 
-// el CO2 estaría guay meterlo con el consumo de la persona que el coche que mete
-// cost tambien y calorias
-// en calories er si hay algo andando y cuanto supone eso en tiempo y distancia en el transporte publico.
+// falta movo patinete y moto y tambien carsharing
 
 
 module.exports = {getDirections,
