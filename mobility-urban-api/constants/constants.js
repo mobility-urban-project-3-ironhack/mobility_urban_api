@@ -66,6 +66,37 @@ const movoMotoRate = {
   var: Number(process.env.MOVO_MOTO_VAR_RATE)
 }
 
+const ecooltraMotoRate = {
+  fix: Number(process.env.ECOOLTRA_MOTO_FIX_RATE),
+  var: Number(process.env.ECOOLTRA_MOTO_VAR_RATE)
+}
+
+const accionaMotoRate = {
+  fix: Number(process.env.ACCIONA_MOTO_FIX_RATE),
+  var: Number(process.env.ACCIONA_MOTO_VAR_RATE)
+}
+
+const movoScooterRate = {
+  fix: Number(process.env.MOVO_SCOOTER_FIX_RATE),
+  var: Number(process.env.MOVO_SCOOTER_VAR_RATE)
+}
+
+const limeScooterRate = {
+  fix: Number(process.env.LIME_SCOOTER_FIX_RATE),
+  var: Number(process.env.LIME_SCOOTER_VAR_RATE)
+}
+
+const jumpScooterRate = {
+  fix: Number(process.env.JUMP_SCOOTER_FIX_RATE),
+  var: Number(process.env.JUMP_SCOOTER_VAR_RATE)
+}
+
+const car2goCarRate = Number(process.env.CAR2GO_VAR_RATE)
+const zityCarRate = Number(process.env.ZITY_VAR_RATE)
+const wiblegoCarRate = Number(process.env.WIBLE_VAR_RATE)
+
+
+
 module.exports = {
   caloriesSecond,
   co2Consumption,
@@ -79,7 +110,15 @@ module.exports = {
   subwayRate,
   waitingTime,
   randomRadius,
-  movoMotoRate
+  movoMotoRate,
+  ecooltraMotoRate,
+  accionaMotoRate,
+  movoScooterRate,
+  limeScooterRate,
+  jumpScooterRate,
+  car2goCarRate,
+  zityCarRate,
+  wiblegoCarRate
 }
 
 

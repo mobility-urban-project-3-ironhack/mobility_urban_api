@@ -1,5 +1,8 @@
 const googleService = require('./services/googleDistance.service')
 const biciMadService = require('./services/biciMad.service')
+const motoService = require('./services/moto.service')
+const randomLocation = require('random-location')
+
 
 const origin = {
   "lat":40.382444,
@@ -23,6 +26,4 @@ const destination = {
 //   .then(res => console.log(res))
 //   .catch(error => console.error(error))
 
-googleService.request(origin,destination,'transit','bus')
-  .then(res => console.log(JSON.stringify(res)))
-  .catch(error => console.error(error))
+console.log(motoService.randomLocationCoor(origin))

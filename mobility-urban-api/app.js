@@ -14,6 +14,7 @@ const session = require('./configs/session.config')
 const authRouter = require('./routes/auth.routes');
 const journeyRouter = require('./routes/journey.routes')
 const searchRouter = require('./routes/search.routes')
+const weatherRouter = require('./routes/weather.routes')
 
 
 const app = express();
@@ -31,6 +32,7 @@ app.use(passport.session())
 app.use('/', authRouter)
 app.use('/journeys', journeyRouter)
 app.use('/search',searchRouter)
+app.use('/weather',weatherRouter)
 // /journeys para trayexto
 // /user para crud de usuario
 

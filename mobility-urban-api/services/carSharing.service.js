@@ -31,11 +31,11 @@ const randomLocationGenerator = (origin) => [randomLocationCoor(origin),randomLo
 
 
 
-const motoRequest = (origin,destination,location,provider) => Promise.all([
+const carSharingRequest = (origin,destination,location,provider) => Promise.all([
   googleService.request(origin,location,'walking'),
   googleService.request(location,destination,'driving')
 ])
-  .then(([walkingJourney, motoJourney]) => {
+  .then(([walkingJourney, carJourney]) => {
     return {
       wayPoints:[{
         transitMode: 'walking',
@@ -48,24 +48,24 @@ const motoRequest = (origin,destination,location,provider) => Promise.all([
         additionalInfo : {}
       },
       {
-        transitMode: 'moto',
-        distance: motoJourney.distance.value,
-        time: motoJourney.duration.value,
+        transitMode: 'driving',
+        distance: carJourney.distance.value,
+        time: carJourney.duration.value,
         wayPoint: {},
         additionalInfo : {
           plate: `${Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000}${generateRandomString(3)}`,
           batery : Math.floor(Math.random() * (100 - 50 + 1)) + 50
         }
       },],
-    totalDistance: walkingJourney.distance.value + motoJourney.distance.value,
-    totalTime: walkingJourney.duration.value + motoJourney.duration.value,
+    totalDistance: walkingJourney.distance.value + carJourney.distance.value,
+    totalTime: walkingJourney.duration.value + carJourney.duration.value,
     totalCalories: (walkingJourney.duration.value)*constants.caloriesSecond.walking,
     co2: 0,
-    cost: constants[`${provider}MotoRate`].fix + (motoJourney.duration.value/60)*constants[`${provider}MotoRate`].var ,
+    cost: (carJourney.duration.value/60)*constants[`${provider}CarRate`] ,
     }
   })
 
-  const totalMotoOptions = (origin,destination,provider) => Promise.all(randomLocationGenerator(origin).map(location => motoRequest(origin,destination,location,provider)))
+  const totalCarSharingOptions = (origin,destination,provider) => Promise.all(randomLocationGenerator(origin).map(location => carSharingRequest(origin,destination,location,provider)))
     .then(([option1,option2,option3]) => {
       return {
         [provider] : [{
@@ -78,20 +78,20 @@ const motoRequest = (origin,destination,location,provider) => Promise.all([
       }
     })
 
-    const totalMotoRequest = (origin,destination) => Promise.all([
-      totalMotoOptions(origin,destination,'movo'),
-      totalMotoOptions(origin,destination,'ecooltra'),
-      totalMotoOptions(origin,destination,'acciona')
+    const totalCarSharingRequest = (origin,destination) => Promise.all([
+      totalCarSharingOptions(origin,destination,'car2go'),
+      totalCarSharingOptions(origin,destination,'zity'),
+      totalCarSharingOptions(origin,destination,'wible')
     ])
-      .then(([movoJourney,ecooltraJourney,accionaJourney]) => {
+      .then(([car2goJourney,zityJourney,wibleJourney]) => {
         return {
-          moto : [{
-            ...movoJourney,
-            ...ecooltraJourney,
-            ...accionaJourney
+          carSharing : [{
+            ...car2goJourney,
+            ...zityJourney,
+            ...wibleJourney
           }]
         }
       })
 
 
-module.exports = {totalMotoRequest}
+module.exports = {totalCarSharingRequest}
