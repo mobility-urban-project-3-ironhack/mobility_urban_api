@@ -5,11 +5,13 @@ const createError = require('http-errors')
 const mongoose = require('mongoose')
 const passport = require('passport')
 
+
 require('./configs/db.config')
 require('./configs/passport.config')
 require('dotenv').config()
 
 const session = require('./configs/session.config')
+const cors = require('./configs/cors.config.js')
 
 const authRouter = require('./routes/auth.routes');
 const journeyRouter = require('./routes/journey.routes')
@@ -26,6 +28,7 @@ app.use(cookieParser());
 
 
 app.use(session)
+app.use(cors)
 app.use(passport.initialize())
 app.use(passport.session())
 
