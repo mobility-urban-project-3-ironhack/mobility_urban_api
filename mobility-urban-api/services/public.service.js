@@ -9,7 +9,7 @@ const publicRequest = (origin,destination) => Promise.all([
 ])
 .then(([walkingJourney, drivingJourney,transitJourneyBus,transitJourneySubway]) => {
   return {
-    driving: {
+    driving: [{
       wayPoints: [],
       totalDistance: drivingJourney.distance.value,
       totalTime: drivingJourney.duration.value,
@@ -17,16 +17,16 @@ const publicRequest = (origin,destination) => Promise.all([
       co2: (drivingJourney.distance.value/1000)*constants.co2Consumption.car,
       cost: (drivingJourney.distance.value/1000)*constants.fuelConsumption*constants.fuelPrice.diesel,
       //regular si el coche de la persona fuera diesel o gasolina
-    },
-    walking: {  
+    }],
+    walking: [{  
       wayPoints: [],
       totalDistance: walkingJourney.distance.value,
       totalTime: walkingJourney.duration.value,
       totalCalories: walkingJourney.duration.value*constants.caloriesSecond.walking,
       co2: 0,
       cost: 0,
-    },  
-    bus: {
+    }],  
+    bus: [{
       wayPoints: transitJourneyBus.steps.map(step => {
         return {
             transitMode: step.travel_mode,
@@ -48,8 +48,8 @@ const publicRequest = (origin,destination) => Promise.all([
       totalCalories: 0,
       co2:0,
       cost: constants.busRate
-    },
-    subway: {
+    }],
+    subway: [{
       wayPoints: transitJourneySubway.steps.map(step => {
         return {
             transitMode: step.travel_mode,
@@ -71,7 +71,7 @@ const publicRequest = (origin,destination) => Promise.all([
       totalCalories: 0,
       co2: 0,
       cost: constants.subwayRate.fix
-    }
+    }]
   }
 })
 

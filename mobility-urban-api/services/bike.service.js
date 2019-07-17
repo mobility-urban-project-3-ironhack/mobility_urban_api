@@ -13,7 +13,7 @@ const bikeRequest = (origin,destination) =>
     )
     .then(([walkingInit,bicycling,walkingFinal]) => {
       return {
-        bicycling: {
+        bicycling: [{
           wayPoints:[{
             transitMode: 'walking',
             distance: walkingInit.distance.value,
@@ -50,7 +50,7 @@ const bikeRequest = (origin,destination) =>
         totalCalories: (walkingInit.duration.value + walkingFinal.duration.value)*constants.caloriesSecond.walking + bicycling.duration.value*constants.caloriesSecond.bike,
         co2: 0,
         cost: Math.ceil(bicycling.duration.value/3600)*constants.biciMadRate,
-      }
+      }]
     }
   })
 
