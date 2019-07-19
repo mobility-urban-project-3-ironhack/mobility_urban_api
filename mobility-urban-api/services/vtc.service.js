@@ -13,9 +13,7 @@ const vtcRequest = (origin,destination) => googleService.request(origin,destinat
             totalCalories: 0,
             co2: (drivingJourney.distance.value/1000)*constants.co2Consumption.cabify,
             cost: constants.cabifyRate.fix + (drivingJourney.distance.value/1000)*(Math.floor(Math.random() * (constants.cabifyRate.variableMax - constants.cabifyRate.variableMin + 1)) + constants.cabifyRate.variableMin),
-          }
-        }, 
-        {
+          },
         uber: {
           wayPoints:[],
           totalDistance: drivingJourney.distance.value,

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-const TRANS_METHODS = ['vtc-cabify', 'moto-movo', 'scooter-movo', 'bike-bicimad', 'car-car2go']
+const TRANS_METHODS = ['vtc-cabify','vtc-uber', 'moto-movo','moto-ecooltra','moto-acciona', 'scooter-movo','scooter-lime','scooter-jump','bike-bicimad', 'carsharing-car2go',
+'carsharing-zity','carsharing-wible','subway','bus','walking','car','taxi']
 
 const journeySchema = new mongoose.Schema({
   origin:{
@@ -24,6 +25,8 @@ const journeySchema = new mongoose.Schema({
   },
   price: Number,
   duration: Number,
+  calories: Number,
+  co2: Number
 }, { 
   timestamps: true,
   toJSON: {
