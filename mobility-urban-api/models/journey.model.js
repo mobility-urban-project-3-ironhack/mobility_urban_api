@@ -26,7 +26,8 @@ const journeySchema = new mongoose.Schema({
   price: Number,
   duration: Number,
   calories: Number,
-  co2: Number
+  co2: Number,
+  createdAt: Date
 }, { 
   timestamps: true,
   toJSON: {

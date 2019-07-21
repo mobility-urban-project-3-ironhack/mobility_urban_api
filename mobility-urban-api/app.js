@@ -17,6 +17,7 @@ const authRouter = require('./routes/auth.routes');
 const journeyRouter = require('./routes/journey.routes')
 const searchRouter = require('./routes/search.routes')
 const weatherRouter = require('./routes/weather.routes')
+const statsRouter = require('./routes/stats.routes')
 
 
 const app = express();
@@ -36,6 +37,7 @@ app.use('/', authRouter)
 app.use('/journeys', journeyRouter)
 app.use('/search',searchRouter)
 app.use('/weather',weatherRouter)
+app.use('/stats', statsRouter)
 // /journeys para trayexto
 // /user para crud de usuario
 

@@ -27,21 +27,25 @@ const point = {
 }
 
 const generateRandomData = () => {
-  for (var i = 0; i<10; i++) {
-    const data = {
-      origin : randomLocationCoor(point),
-      destination : randomLocationCoor(point),
-      userId : userId[Math.floor(Math.random()*(2-0+1)+0)],
-      method : transportationMethod[Math.floor(Math.random()*(16-0+1)+0)],
-      price: Math.random()*(20-1+1)+1,
-      duration: Math.floor(Math.random()*(5000-300+1)+300),
-      calories: (Math.random()*(300-5+1)+5),
-      co2: (Math.random()*(300-10+1)+10),
-    }
+  for (var i = 0; i<7; i++) {
+  
+      const data = {
+        origin : randomLocationCoor(point),
+        destination : randomLocationCoor(point),
+        userID : userId[Math.floor(Math.random()*(2-0+1)+0)],
+        method : transportationMethod[Math.floor(Math.random()*(16-0+1)+0)],
+        price: Math.random()*(20-1+1)+1,
+        duration: Math.floor(Math.random()*(5000-300+1)+300),
+        calories: (Math.random()*(300-5+1)+5),
+        co2: (Math.random()*(300-10+1)+10),
+       createdAt: new Date(`2019-7-${Math.floor(Math.random()*(20-0+1)+0)}`),
+      //  createdAt: new Date(`2019-${i+1}-${Math.floor(Math.random()*(20-0+1)+0)}`),
+      }
+  
+      const journey = new Journey(data)
+      journey.save()
+        .then(res => console.log(res))
 
-    const journey = new Journey(data)
-    journey.save()
-      .then(res => console.log(res))
   }
 }
 
